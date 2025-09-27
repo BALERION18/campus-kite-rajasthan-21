@@ -10,583 +10,176 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "13.0.5"
+    PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
-      applications: {
-        Row: {
-          additional_documents: string[] | null
-          applied_at: string | null
-          cover_letter: string | null
-          id: string
-          opportunity_id: string
-          status: Database["public"]["Enums"]["application_status"] | null
-          student_id: string
-          updated_at: string | null
-        }
-        Insert: {
-          additional_documents?: string[] | null
-          applied_at?: string | null
-          cover_letter?: string | null
-          id?: string
-          opportunity_id: string
-          status?: Database["public"]["Enums"]["application_status"] | null
-          student_id: string
-          updated_at?: string | null
-        }
-        Update: {
-          additional_documents?: string[] | null
-          applied_at?: string | null
-          cover_letter?: string | null
-          id?: string
-          opportunity_id?: string
-          status?: Database["public"]["Enums"]["application_status"] | null
-          student_id?: string
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "applications_opportunity_id_fkey"
-            columns: ["opportunity_id"]
-            isOneToOne: false
-            referencedRelation: "opportunities"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "applications_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      certificates: {
-        Row: {
-          certificate_type: string
-          certificate_url: string | null
-          created_at: string | null
-          description: string | null
-          id: string
-          issued_by: string
-          issued_date: string | null
-          student_id: string
-          title: string
-          verification_code: string | null
-        }
-        Insert: {
-          certificate_type: string
-          certificate_url?: string | null
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          issued_by: string
-          issued_date?: string | null
-          student_id: string
-          title: string
-          verification_code?: string | null
-        }
-        Update: {
-          certificate_type?: string
-          certificate_url?: string | null
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          issued_by?: string
-          issued_date?: string | null
-          student_id?: string
-          title?: string
-          verification_code?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "certificates_issued_by_fkey"
-            columns: ["issued_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "certificates_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      companies: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          founded_year: number | null
-          id: string
-          industry: string | null
-          location: string | null
-          logo_url: string | null
-          name: string
-          size: string | null
-          updated_at: string | null
-          website: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          founded_year?: number | null
-          id?: string
-          industry?: string | null
-          location?: string | null
-          logo_url?: string | null
-          name: string
-          size?: string | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          founded_year?: number | null
-          id?: string
-          industry?: string | null
-          location?: string | null
-          logo_url?: string | null
-          name?: string
-          size?: string | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Relationships: []
-      }
-      interview_schedules: {
-        Row: {
-          application_id: string
-          created_at: string | null
-          duration_minutes: number | null
-          feedback: string | null
-          id: string
-          interview_date: string
-          interview_type: string | null
-          interviewer_id: string
-          location: string | null
-          meeting_url: string | null
-          notes: string | null
-          rating: number | null
-          status: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          application_id: string
-          created_at?: string | null
-          duration_minutes?: number | null
-          feedback?: string | null
-          id?: string
-          interview_date: string
-          interview_type?: string | null
-          interviewer_id: string
-          location?: string | null
-          meeting_url?: string | null
-          notes?: string | null
-          rating?: number | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          application_id?: string
-          created_at?: string | null
-          duration_minutes?: number | null
-          feedback?: string | null
-          id?: string
-          interview_date?: string
-          interview_type?: string | null
-          interviewer_id?: string
-          location?: string | null
-          meeting_url?: string | null
-          notes?: string | null
-          rating?: number | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "interview_schedules_application_id_fkey"
-            columns: ["application_id"]
-            isOneToOne: false
-            referencedRelation: "applications"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "interview_schedules_interviewer_id_fkey"
-            columns: ["interviewer_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      mentorship_requests: {
-        Row: {
-          id: string
-          mentor_id: string
-          message: string | null
-          requested_at: string | null
-          responded_at: string | null
-          status: string | null
-          student_id: string
-        }
-        Insert: {
-          id?: string
-          mentor_id: string
-          message?: string | null
-          requested_at?: string | null
-          responded_at?: string | null
-          status?: string | null
-          student_id: string
-        }
-        Update: {
-          id?: string
-          mentor_id?: string
-          message?: string | null
-          requested_at?: string | null
-          responded_at?: string | null
-          status?: string | null
-          student_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "mentorship_requests_mentor_id_fkey"
-            columns: ["mentor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "mentorship_requests_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      mentorship_sessions: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          duration_minutes: number | null
-          feedback: string | null
-          id: string
-          meeting_url: string | null
-          mentor_id: string
-          rating: number | null
-          scheduled_at: string
-          session_type: string | null
-          status: Database["public"]["Enums"]["session_status"] | null
-          student_id: string
-          title: string
-          updated_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          duration_minutes?: number | null
-          feedback?: string | null
-          id?: string
-          meeting_url?: string | null
-          mentor_id: string
-          rating?: number | null
-          scheduled_at: string
-          session_type?: string | null
-          status?: Database["public"]["Enums"]["session_status"] | null
-          student_id: string
-          title: string
-          updated_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          duration_minutes?: number | null
-          feedback?: string | null
-          id?: string
-          meeting_url?: string | null
-          mentor_id?: string
-          rating?: number | null
-          scheduled_at?: string
-          session_type?: string | null
-          status?: Database["public"]["Enums"]["session_status"] | null
-          student_id?: string
-          title?: string
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "mentorship_sessions_mentor_id_fkey"
-            columns: ["mentor_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "mentorship_sessions_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      messages: {
+      blogs: {
         Row: {
           content: string
+          created_at: string
+          excerpt: string | null
+          featured_image: string | null
           id: string
-          is_read: boolean | null
-          recipient_id: string
-          sender_id: string
-          sent_at: string | null
-          subject: string | null
+          images: string[] | null
+          media_url: string[] | null
+          role: string | null
+          status: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+          views_count: number | null
         }
         Insert: {
           content: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image?: string | null
           id?: string
-          is_read?: boolean | null
-          recipient_id: string
-          sender_id: string
-          sent_at?: string | null
-          subject?: string | null
+          images?: string[] | null
+          media_url?: string[] | null
+          role?: string | null
+          status?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+          views_count?: number | null
         }
         Update: {
           content?: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image?: string | null
           id?: string
-          is_read?: boolean | null
-          recipient_id?: string
-          sender_id?: string
-          sent_at?: string | null
-          subject?: string | null
+          images?: string[] | null
+          media_url?: string[] | null
+          role?: string | null
+          status?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          views_count?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "messages_recipient_id_fkey"
-            columns: ["recipient_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "messages_sender_id_fkey"
-            columns: ["sender_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
-      opportunities: {
+      bookings: {
         Row: {
-          application_deadline: string | null
-          company_id: string
-          created_at: string | null
-          description: string
-          duration: string | null
+          amount: number
+          booking_type: string
+          created_at: string
+          details: Json
           id: string
-          is_active: boolean | null
-          location: string | null
-          posted_by: string
-          requirements: string[] | null
-          skills_required: string[] | null
-          stipend_salary: string | null
-          title: string
-          type: Database["public"]["Enums"]["opportunity_type"]
-          updated_at: string | null
+          payment_id: string | null
+          payment_status: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
-          application_deadline?: string | null
-          company_id: string
-          created_at?: string | null
-          description: string
-          duration?: string | null
+          amount: number
+          booking_type: string
+          created_at?: string
+          details: Json
           id?: string
-          is_active?: boolean | null
-          location?: string | null
-          posted_by: string
-          requirements?: string[] | null
-          skills_required?: string[] | null
-          stipend_salary?: string | null
-          title: string
-          type: Database["public"]["Enums"]["opportunity_type"]
-          updated_at?: string | null
+          payment_id?: string | null
+          payment_status?: string
+          updated_at?: string
+          user_id: string
         }
         Update: {
-          application_deadline?: string | null
-          company_id?: string
-          created_at?: string | null
-          description?: string
-          duration?: string | null
+          amount?: number
+          booking_type?: string
+          created_at?: string
+          details?: Json
           id?: string
-          is_active?: boolean | null
-          location?: string | null
-          posted_by?: string
-          requirements?: string[] | null
-          skills_required?: string[] | null
-          stipend_salary?: string | null
-          title?: string
-          type?: Database["public"]["Enums"]["opportunity_type"]
-          updated_at?: string | null
+          payment_id?: string | null
+          payment_status?: string
+          updated_at?: string
+          user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "opportunities_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "opportunities_posted_by_fkey"
-            columns: ["posted_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
           avatar_url: string | null
           bio: string | null
-          cgpa: number | null
-          college_name: string | null
-          company_name: string | null
-          course: string | null
-          created_at: string | null
-          designation: string | null
-          email: string
-          experience_years: number | null
-          full_name: string
+          created_at: string
+          display_name: string | null
+          full_name: string | null
+          gender: string | null
           id: string
-          linkedin_url: string | null
-          phone: string | null
-          portfolio_url: string | null
-          resume_url: string | null
-          role: Database["public"]["Enums"]["user_role"]
-          skills: string[] | null
-          updated_at: string | null
-          user_id: string
-          year_of_study: number | null
+          kyc_document_url: string | null
+          kyc_status: string | null
+          updated_at: string
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
-          cgpa?: number | null
-          college_name?: string | null
-          company_name?: string | null
-          course?: string | null
-          created_at?: string | null
-          designation?: string | null
-          email: string
-          experience_years?: number | null
-          full_name: string
-          id?: string
-          linkedin_url?: string | null
-          phone?: string | null
-          portfolio_url?: string | null
-          resume_url?: string | null
-          role: Database["public"]["Enums"]["user_role"]
-          skills?: string[] | null
-          updated_at?: string | null
-          user_id: string
-          year_of_study?: number | null
+          created_at?: string
+          display_name?: string | null
+          full_name?: string | null
+          gender?: string | null
+          id: string
+          kyc_document_url?: string | null
+          kyc_status?: string | null
+          updated_at?: string
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
-          cgpa?: number | null
-          college_name?: string | null
-          company_name?: string | null
-          course?: string | null
-          created_at?: string | null
-          designation?: string | null
-          email?: string
-          experience_years?: number | null
-          full_name?: string
+          created_at?: string
+          display_name?: string | null
+          full_name?: string | null
+          gender?: string | null
           id?: string
-          linkedin_url?: string | null
-          phone?: string | null
-          portfolio_url?: string | null
-          resume_url?: string | null
-          role?: Database["public"]["Enums"]["user_role"]
-          skills?: string[] | null
-          updated_at?: string | null
-          user_id?: string
-          year_of_study?: number | null
+          kyc_document_url?: string | null
+          kyc_status?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
-      skill_assessments: {
+      user_roles: {
         Row: {
-          assessment_date: string | null
-          certificate_url: string | null
           created_at: string | null
           id: string
-          score: number | null
-          skill_name: string
-          student_id: string
-          verified_by: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
         }
         Insert: {
-          assessment_date?: string | null
-          certificate_url?: string | null
           created_at?: string | null
           id?: string
-          score?: number | null
-          skill_name: string
-          student_id: string
-          verified_by?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
         }
         Update: {
-          assessment_date?: string | null
-          certificate_url?: string | null
           created_at?: string | null
           id?: string
-          score?: number | null
-          skill_name?: string
-          student_id?: string
-          verified_by?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "skill_assessments_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "skill_assessments_verified_by_fkey"
-            columns: ["verified_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_role: {
+        Args: { user_uuid: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      application_status:
-        | "pending"
-        | "shortlisted"
-        | "interview_scheduled"
-        | "offered"
-        | "rejected"
-        | "accepted"
-      opportunity_type: "internship" | "full_time" | "part_time" | "contract"
-      session_status: "scheduled" | "completed" | "cancelled" | "rescheduled"
-      user_role: "student" | "mentor" | "placement_officer" | "recruiter"
+      app_role: "user" | "admin" | "guide"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -714,17 +307,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      application_status: [
-        "pending",
-        "shortlisted",
-        "interview_scheduled",
-        "offered",
-        "rejected",
-        "accepted",
-      ],
-      opportunity_type: ["internship", "full_time", "part_time", "contract"],
-      session_status: ["scheduled", "completed", "cancelled", "rescheduled"],
-      user_role: ["student", "mentor", "placement_officer", "recruiter"],
+      app_role: ["user", "admin", "guide"],
     },
   },
 } as const
