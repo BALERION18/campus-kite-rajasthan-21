@@ -30,16 +30,13 @@ interface Application {
   status: string;
   applied_at: string;
   cover_letter?: string;
-  opportunities: {
+  jobs: {
     id: string;
     title: string;
-    type: string;
+    job_type: string;
     location: string;
-    stipend_salary: string;
-    companies: {
-      name: string;
-      logo_url?: string;
-    };
+    salary_range: string;
+    company_name: string;
   };
 }
 
@@ -64,19 +61,16 @@ const MyApplications = () => {
         .from('applications')
         .select(`
           *,
-          opportunities (
+          jobs (
             id,
             title,
-            type,
+            job_type,
             location,
-            stipend_salary,
-            companies (
-              name,
-              logo_url
-            )
+            salary_range,
+            company_name
           )
         `)
-        .eq('student_id', profile.id)
+        .eq('applicant_id', profile.id)
         .order('applied_at', { ascending: false });
 
       if (error) throw error;
@@ -127,8 +121,8 @@ const MyApplications = () => {
 
   const filteredApplications = applications.filter(app => {
     const matchesFilter = filter === 'all' || app.status.toLowerCase() === filter.toLowerCase();
-    const matchesSearch = app.opportunities.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         app.opportunities.companies.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = app.jobs.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         app.jobs.company_name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -224,12 +218,12 @@ const MyApplications = () => {
                         <Building2 className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg">{application.opportunities.title}</h3>
-                        <p className="text-muted-foreground">{application.opportunities.companies.name}</p>
+                        <h3 className="font-semibold text-lg">{application.jobs.title}</h3>
+                        <p className="text-muted-foreground">{application.jobs.company_name}</p>
                         <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1">
                           <div className="flex items-center space-x-1">
                             <MapPin className="h-4 w-4" />
-                            <span>{application.opportunities.location}</span>
+                            <span>{application.jobs.location}</span>
                           </div>
                           <div className="flex items-center space-x-1">
                             <Calendar className="h-4 w-4" />
@@ -244,14 +238,14 @@ const MyApplications = () => {
                         <span className="capitalize">{application.status.replace('_', ' ')}</span>
                       </Badge>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {application.opportunities.stipend_salary}
+                        {application.jobs.salary_range}
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between pt-4 border-t">
                     <Badge variant="outline" className="capitalize">
-                      {application.opportunities.type.replace('_', ' ')}
+                      {application.jobs.job_type.replace('_', ' ')}
                     </Badge>
                     <Button variant="outline" size="sm">
                       <Eye className="h-4 w-4 mr-2" />

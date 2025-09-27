@@ -5,24 +5,15 @@ import { useToast } from '@/hooks/use-toast';
 
 interface Profile {
   id: string;
-  user_id: string;
-  role: 'student' | 'mentor' | 'placement_officer' | 'recruiter';
-  full_name: string;
-  email: string;
-  phone?: string;
-  avatar_url?: string;
-  bio?: string;
-  college_name?: string;
-  course?: string;
-  year_of_study?: number;
-  cgpa?: number;
-  company_name?: string;
-  designation?: string;
-  experience_years?: number;
-  skills?: string[];
-  linkedin_url?: string;
-  portfolio_url?: string;
-  resume_url?: string;
+  full_name: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  bio: string | null;
+  gender: string | null;
+  kyc_document_url: string | null;
+  kyc_status: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 interface AuthContextType {
@@ -90,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', userId)
+        .eq('id', userId)
         .single();
 
       if (error) {
@@ -159,7 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { error } = await supabase
         .from('profiles')
         .update(updates)
-        .eq('user_id', user.id);
+        .eq('id', user.id);
 
       if (!error) {
         setProfile(prev => prev ? { ...prev, ...updates } : null);

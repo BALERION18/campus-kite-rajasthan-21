@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          applicant_id: string
+          applied_at: string
+          cover_letter: string | null
+          id: string
+          job_id: string
+          resume_url: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          applicant_id: string
+          applied_at?: string
+          cover_letter?: string | null
+          id?: string
+          job_id: string
+          resume_url?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          applicant_id?: string
+          applied_at?: string
+          cover_letter?: string | null
+          id?: string
+          job_id?: string
+          resume_url?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blogs: {
         Row: {
           content: string
@@ -98,6 +139,110 @@ export type Database = {
           payment_status?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      interview_schedules: {
+        Row: {
+          application_id: string
+          created_at: string
+          duration_minutes: number
+          id: string
+          interview_date: string
+          interview_type: string
+          interviewer_id: string
+          meeting_link: string | null
+          notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          interview_date: string
+          interview_type?: string
+          interviewer_id: string
+          meeting_link?: string | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          interview_date?: string
+          interview_type?: string
+          interviewer_id?: string
+          meeting_link?: string | null
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interview_schedules_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      jobs: {
+        Row: {
+          application_deadline: string | null
+          company_name: string
+          created_at: string
+          description: string
+          experience_level: string | null
+          id: string
+          job_type: string
+          location: string
+          posted_by: string
+          requirements: string[] | null
+          salary_range: string | null
+          skills_required: string[] | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          company_name: string
+          created_at?: string
+          description: string
+          experience_level?: string | null
+          id?: string
+          job_type?: string
+          location: string
+          posted_by: string
+          requirements?: string[] | null
+          salary_range?: string | null
+          skills_required?: string[] | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          application_deadline?: string | null
+          company_name?: string
+          created_at?: string
+          description?: string
+          experience_level?: string | null
+          id?: string
+          job_type?: string
+          location?: string
+          posted_by?: string
+          requirements?: string[] | null
+          salary_range?: string | null
+          skills_required?: string[] | null
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

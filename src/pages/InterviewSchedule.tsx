@@ -35,15 +35,8 @@ interface InterviewScheduleItem {
   status: string;
   applications: {
     id: string;
-    opportunities: {
+    jobs: {
       title: string;
-      companies: {
-        name: string;
-      };
-    };
-    profiles: {
-      full_name: string;
-      email: string;
     };
   };
 }
@@ -82,15 +75,8 @@ const InterviewSchedule = () => {
           *,
           applications (
             id,
-            opportunities (
-              title,
-              companies (
-                name
-              )
-            ),
-            profiles (
-              full_name,
-              email
+            jobs (
+              title
             )
           )
         `)
@@ -120,15 +106,8 @@ const InterviewSchedule = () => {
         .from('applications')
         .select(`
           *,
-          opportunities (
-            title,
-            companies (
-              name
-            )
-          ),
-          profiles (
-            full_name,
-            email
+          jobs (
+            title
           )
         `)
         .eq('status', 'shortlisted');
@@ -272,7 +251,7 @@ const InterviewSchedule = () => {
                     <SelectContent>
                       {applications.map((app) => (
                         <SelectItem key={app.id} value={app.id}>
-                          {app.profiles.full_name} - {app.opportunities.title} at {app.opportunities.companies.name}
+                          Application for {app.jobs.title}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -419,10 +398,10 @@ const InterviewSchedule = () => {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg">
-                          {interview.applications.profiles.full_name}
+                          Interview Scheduled
                         </h3>
                         <p className="text-muted-foreground">
-                          {interview.applications.opportunities.title} at {interview.applications.opportunities.companies.name}
+                          {interview.applications.jobs.title}
                         </p>
                         <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-2">
                           <div className="flex items-center space-x-1">
@@ -475,7 +454,7 @@ const InterviewSchedule = () => {
                   
                   <div className="flex items-center justify-between pt-4 border-t">
                     <p className="text-sm text-muted-foreground">
-                      {interview.applications.profiles.email}
+                      Job: {interview.applications.jobs.title}
                     </p>
                     <div className="flex space-x-2">
                       <Button variant="outline" size="sm">
